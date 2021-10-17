@@ -25,8 +25,13 @@ const ScreenThree = ({ navigation: { goBack } }) => (
 const NativeStack = createNativeStackNavigator();
 
 const Stack = () => (
-  <NativeStack.Navigator>
-    <NativeStack.Screen name={'One'} component={ScreenOne} />
+  //screenOptions과 options의 차이는 screenOptions은 모든 screen에 적용하는 거고 options은 해당 screen에만 적용한다는 것이다.
+  <NativeStack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+    <NativeStack.Screen
+      name={'One'}
+      component={ScreenOne}
+      options={{ headerTitle: 'ONEONE' }}
+    />
     <NativeStack.Screen name={'Two'} component={ScreenTwo} />
     <NativeStack.Screen name={'Three'} component={ScreenThree} />
   </NativeStack.Navigator>

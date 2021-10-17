@@ -35,3 +35,5 @@ npx create-react-native-app
   ```bash
   npm install @react-navigation/native-stack
   ```
+
+- #06 different between screenOptions with options
