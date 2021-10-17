@@ -6,8 +6,13 @@ import { Text, View, Image } from 'react-native';
 import { Asset } from 'expo-asset';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DarkTheme,
+  DefaultTheme,
+} from '@react-navigation/native';
 import Tabs from './navigation/Tabs';
+import useColorScheme from 'react-native/Libraries/Utilities/useColorScheme';
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
@@ -43,11 +48,12 @@ export default function App() {
       console.log(e);
     }
   }, []);
+  const isDark = useColorScheme() === 'dark';
   if (!ready) {
     return <AppLoading />;
   }
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
       <Tabs />
     </NavigationContainer>
   );

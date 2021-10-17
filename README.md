@@ -23,3 +23,5 @@ npx create-react-native-app
   ```
 
 - #03 Tab Navigation Initialized
+
+- #04 Dark Mode, TabBarIcon
