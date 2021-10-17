@@ -48,6 +48,18 @@ npx create-react-native-app
 
 - #08 styled-components
 
+  - styled-components가 제공하는 theme을 활용하여 dark mode, light mode를 손쉽게 구현할 수 있는 장점
+  - View, Text, ...등 항상 import하여 사용할 때의 불편함을 styled 하나만 임포트하여 좀 더 생산성이 높아짐
+  - 한 컴포넌트에서 여러 hierarchy구조일 때 View, View, View, View ...등 알아보기 힘듬 -> Container, Header, Main, Footer 등 우리가 원하는 이름으로 사용 가능한 장점
+
   ```bash
   npm i --save styled-components
+  ```
+
+- #09 Typescript
+
+  ```bash
+  npm install -D typescript @types/jest @types/react @types/react-native @types/react-test-renderer
+
+  npm install @types/styled-components @types/styled-components-react-native
   ```
