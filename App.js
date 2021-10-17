@@ -15,6 +15,8 @@ import Tabs from './navigation/Tabs';
 import useColorScheme from 'react-native/Libraries/Utilities/useColorScheme';
 import Stack from './navigation/Stack';
 import Root from './navigation/Root';
+import { ThemeProvider } from 'styled-components/native';
+import { darkTheme, lightTheme } from './styled';
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
@@ -55,8 +57,10 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
-      <Root />
-    </NavigationContainer>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
+        <Root />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
