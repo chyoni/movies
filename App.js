@@ -6,6 +6,8 @@ import { Text, View, Image } from 'react-native';
 import { Asset } from 'expo-asset';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import Tabs from './navigation/Tabs';
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
@@ -44,5 +46,9 @@ export default function App() {
   if (!ready) {
     return <AppLoading />;
   }
-  return null;
+  return (
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
+  );
 }
