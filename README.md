@@ -56,10 +56,16 @@ npx create-react-native-app
   npm i --save styled-components
   ```
 
-- #09 Typescript
+- #09 Apply Typescript
 
   ```bash
   npm install -D typescript @types/jest @types/react @types/react-native @types/react-test-renderer
 
   npm install @types/styled-components @types/styled-components-react-native
+  ```
+
+- #10 Movies Swiper 1
+
+  ```bash
+  npm i react-native-web-swiper --save
   ```
