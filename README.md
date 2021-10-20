@@ -69,3 +69,14 @@ npx create-react-native-app
   ```bash
   npm i react-native-web-swiper --save
   ```
+
+- #11 Movies Swiper 2
+
+  - 블러처리를 뒤에해주고 특정 View를 보여주려는 뷰를 사용할 때 쓰는 BlurView
+  - BlurView를 사용할 때 ios 개발에 대해서는 아래 pod-install을 해줘야한다.
+  - 그리고 Stylesheet.absoluteFill은 width: 100%; height: 100%; position: absolute; 이렇게 css를 만드는것과 동일하다. 너무 자주사용되니 하나 만들었나보다.
+
+  ```bash
+  expo install expo-blur
+  npx pod-install ios
+  ```
