@@ -80,3 +80,11 @@ npx create-react-native-app
   expo install expo-blur
   npx pod-install ios
   ```
+
+- #12 Swiper Changed and now playing movies
+
+  - Bounce효과를 없애기 위함
+
+  ```bash
+  npm i --save react-native-swiper@next
+  ```
