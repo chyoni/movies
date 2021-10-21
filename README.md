@@ -88,3 +88,5 @@ npx create-react-native-app
   ```bash
   npm i --save react-native-swiper@next
   ```
+
+- #13 Styled Component how to pass props

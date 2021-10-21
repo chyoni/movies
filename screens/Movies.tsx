@@ -45,8 +45,8 @@ const BgImg = styled.Image`
   height: 100%;
   position: absolute;
 `;
-const Title = styled.Text`
-  color: ${(props) => props.theme.textColor};
+const Title = styled.Text<{ isDark: boolean }>`
+  color: ${(props) => (props.isDark ? 'white' : 'black')};
   font-weight: 600;
 `;
 const Poster = styled.Image`
@@ -64,9 +64,10 @@ const Column = styled.View`
   width: 40%;
   margin-left: 15px;
 `;
-const Overview = styled.Text`
+const Overview = styled.Text<{ isDark: boolean }>`
   margin-top: 10px;
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) =>
+    props.isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'};
 `;
 const Votes = styled(Overview)`
   font-size: 12px;
@@ -117,9 +118,11 @@ const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
               <Wrapper>
                 <Poster source={{ uri: makeImgPath(movie.poster_path!) }} />
                 <Column>
-                  <Title>{movie.title}</Title>
-                  <Votes>⭐️ {movie.vote_average} / 10</Votes>
-                  <Overview>{movie.overview.slice(0, 80)}...</Overview>
+                  <Title isDark={isDark}>{movie.title}</Title>
+                  <Votes isDark={isDark}>⭐️ {movie.vote_average} / 10</Votes>
+                  <Overview isDark={isDark}>
+                    {movie.overview.slice(0, 80)}...
+                  </Overview>
                 </Column>
               </Wrapper>
             </BlurView>
