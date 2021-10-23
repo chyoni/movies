@@ -90,3 +90,5 @@ npx create-react-native-app
   ```
 
 - #13 Styled Component how to pass props
+
+- #14 Refactoring
