@@ -1,6 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Dimensions, RefreshControl } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components/native';
 import { TMDB_API_KEY } from './../secrets';
@@ -42,15 +47,14 @@ const ListTitle = styled.Text`
   font-weight: 600;
   font-size: 18px;
 `;
-const TrendingScroll = styled.ScrollView`
-  margin-top: 20px;
-`;
 const ListContainer = styled.View`
   margin-bottom: 30px;
 `;
-
 const HMovieContainer = styled.View`
   margin-top: 30px;
+`;
+const Seperator = styled.View`
+  margin-right: 20px;
 `;
 
 const { height: SCREEN_HIGHT } = Dimensions.get('window');
@@ -134,21 +138,22 @@ const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
       </Swiper>
       <ListContainer>
         <ListTitle>Trending Movies</ListTitle>
-        <TrendingScroll
-          contentContainerStyle={{ paddingLeft: 30 }}
+        <FlatList
+          data={trending}
           horizontal
+          keyExtractor={(item: IMovies) => item.id.toString()}
           showsHorizontalScrollIndicator={false}
-        >
-          {trending.map((movie) => (
+          contentContainerStyle={{ paddingHorizontal: 30, marginTop: 30 }}
+          ItemSeparatorComponent={() => <Seperator />}
+          renderItem={({ item }: { item: IMovies }) => (
             <VMedia
-              key={movie.id}
-              id={movie.id}
-              original_title={movie.original_title}
-              poster_path={movie.poster_path}
-              vote_average={movie.vote_average}
+              id={item.id}
+              original_title={item.original_title}
+              poster_path={item.poster_path}
+              vote_average={item.vote_average}
             />
-          ))}
-        </TrendingScroll>
+          )}
+        />
       </ListContainer>
       <ListTitle>Coming soon</ListTitle>
       <HMovieContainer>

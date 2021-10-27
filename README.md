@@ -98,3 +98,5 @@ npx create-react-native-app
 - #16 Refreshing Control
 
 - #17 Reuse Components (Votes, Vertical Media, Horizontal Media)
+
+- #18 FlatList 1

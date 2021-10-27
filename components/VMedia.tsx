@@ -11,7 +11,6 @@ interface VMediaProps {
 }
 
 const View = styled.View`
-  margin-right: 20px;
   align-items: center;
 `;
 const Title = styled.Text`
