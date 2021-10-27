@@ -10,7 +10,7 @@ const Image = styled.Image`
   width: 120px;
   height: 160px;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: ${(props) => props.theme.textColor};
 `;
 
 const Poster: React.FC<PosterProps> = ({ path }) => {

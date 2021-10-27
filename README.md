@@ -96,3 +96,5 @@ npx create-react-native-app
 - #15 Movies Screen
 
 - #16 Refreshing Control
+
+- #17 Reuse Components (Votes, Vertical Media, Horizontal Media)
