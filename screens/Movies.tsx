@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Dimensions } from 'react-native';
+import { ActivityIndicator, Dimensions, RefreshControl } from 'react-native';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components/native';
 import { TMDB_API_KEY } from './../secrets';
@@ -89,6 +89,7 @@ const { height: SCREEN_HIGHT } = Dimensions.get('window');
 const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
   navigation: { navigate },
 }) => {
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [nowPlaying, setNowPlaying] = useState<Array<IMovies>>([]);
   const [upcoming, setUpcoming] = useState<Array<IMovies>>([]);
@@ -121,12 +122,21 @@ const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
   useEffect(() => {
     getData();
   }, []);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getData();
+    setRefreshing(false);
+  };
   return loading ? (
     <Loader>
       <ActivityIndicator />
     </Loader>
   ) : (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <Swiper
         horizontal
         loop

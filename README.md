@@ -94,3 +94,5 @@ npx create-react-native-app
 - #14 Refactoring
 
 - #15 Movies Screen
+
+- #16 Refreshing Control
