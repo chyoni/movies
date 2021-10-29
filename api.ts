@@ -1,6 +1,17 @@
+import { IMovies } from './screens/Movies';
 import { TMDB_API_KEY } from './secrets';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
+
+interface BaseResponse {
+  page: number;
+  total_results: number;
+  total_pages: number;
+}
+
+export interface MovieResponse extends BaseResponse {
+  results: IMovies[];
+}
 
 const trending = () =>
   fetch(`${BASE_URL}/trending/movie/week?api_key=${TMDB_API_KEY}`).then((res) =>

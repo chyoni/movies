@@ -110,3 +110,5 @@ npx create-react-native-app
   ```
 
 - #21 Refetch by using queryClient
+
+- #22 useQuery Type
