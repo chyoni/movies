@@ -108,3 +108,5 @@ npx create-react-native-app
   ```bash
   npm i react-query
   ```
+
+- #21 Refetch by using queryClient

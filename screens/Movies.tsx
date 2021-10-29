@@ -7,7 +7,7 @@ import { TMDB_API_KEY } from './../secrets';
 import Slide from '../components/Slide';
 import HMedia from '../components/HMedia';
 import VMedia from '../components/VMedia';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { moviesAPI } from '../api';
 
 interface IMovies {
@@ -58,20 +58,25 @@ const { height: SCREEN_HIGHT } = Dimensions.get('window');
 const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
   navigation: { navigate },
 }) => {
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const { isLoading: nowPlayingLoading, data: nowPlayingData } = useQuery(
-    'nowPlaying',
-    moviesAPI.nowPlaying
-  );
-  const { isLoading: upcomingLoading, data: upcomingData } = useQuery(
-    'upcoming',
-    moviesAPI.upcoming
-  );
-  const { isLoading: trendingLoading, data: trendingData } = useQuery(
-    'trending',
-    moviesAPI.trending
-  );
-  const onRefresh = async () => {};
+  const queryClient = useQueryClient();
+  const {
+    isLoading: nowPlayingLoading,
+    data: nowPlayingData,
+    isRefetching: isRefetchingNowPlaying,
+  } = useQuery(['movies', 'nowPlaying'], moviesAPI.nowPlaying);
+  const {
+    isLoading: upcomingLoading,
+    data: upcomingData,
+    isRefetching: isRefetchingUpcoming,
+  } = useQuery(['movies', 'upcoming'], moviesAPI.upcoming);
+  const {
+    isLoading: trendingLoading,
+    data: trendingData,
+    isRefetching: isRefetchingTrending,
+  } = useQuery(['movies', 'trending'], moviesAPI.trending);
+  const onRefresh = async () => {
+    queryClient.refetchQueries(['movies']);
+  };
   const vRenderItem = ({ item }: { item: IMovies }) => (
     <VMedia
       id={item.id}
@@ -92,6 +97,8 @@ const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
   const movieKeyExtractor = (item: IMovies) => item.id.toString();
   const loading: boolean =
     nowPlayingLoading || upcomingLoading || trendingLoading;
+  const refreshing =
+    isRefetchingNowPlaying || isRefetchingTrending || isRefetchingUpcoming;
   return loading ? (
     <Loader>
       <ActivityIndicator />
