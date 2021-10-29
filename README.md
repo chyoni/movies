@@ -100,3 +100,5 @@ npx create-react-native-app
 - #17 Reuse Components (Votes, Vertical Media, Horizontal Media)
 
 - #18 FlatList 1
+
+- #19 FlatList 2
