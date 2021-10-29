@@ -102,3 +102,9 @@ npx create-react-native-app
 - #18 FlatList 1
 
 - #19 FlatList 2
+
+- #20 React Query
+
+  ```bash
+  npm i react-query
+  ```

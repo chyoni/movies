@@ -11,6 +11,8 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        // unmountOnBlur는 탭에서 탭으로 이동 시 기존 올라온 메모리를 다 지워버리는 역할
+        unmountOnBlur: true,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',

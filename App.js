@@ -2,7 +2,7 @@ import React from 'react';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { Text, View, Image } from 'react-native';
+import { Image } from 'react-native';
 import { Asset } from 'expo-asset';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -11,12 +11,13 @@ import {
   DarkTheme,
   DefaultTheme,
 } from '@react-navigation/native';
-import Tabs from './navigation/Tabs';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import useColorScheme from 'react-native/Libraries/Utilities/useColorScheme';
-import Stack from './navigation/Stack';
 import Root from './navigation/Root';
 import { ThemeProvider } from 'styled-components/native';
 import { darkTheme, lightTheme } from './styled';
+
+const queryClient = new QueryClient();
 
 const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
@@ -57,10 +58,12 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
-        <Root />
-      </NavigationContainer>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
+          <Root />
+        </NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
