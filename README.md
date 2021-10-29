@@ -112,3 +112,7 @@ npx create-react-native-app
 - #21 Refetch by using queryClient
 
 - #22 useQuery Type
+
+- #23 Tv Screen
+
+  - 한 가지 FlatList를 쓸 때 주의사항은 ScrollView (vertical) 안에 FlatList (vertical)을 사용할 수 없다는 점

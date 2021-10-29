@@ -1,12 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components/native';
-import { TMDB_API_KEY } from './../secrets';
 import Slide from '../components/Slide';
 import HMedia from '../components/HMedia';
 import VMedia from '../components/VMedia';
+import Loader from '../components/Loader';
 import { useQuery, useQueryClient } from 'react-query';
 import { MovieResponse, moviesAPI } from '../api';
 
@@ -26,11 +26,6 @@ export interface IMovies {
   vote_average: number;
   overview: string;
 }
-const Loader = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
 const View = styled.View`
   flex: 1;
 `;
@@ -100,9 +95,7 @@ const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
   const refreshing: boolean =
     isRefetchingNowPlaying || isRefetchingTrending || isRefetchingUpcoming;
   return loading ? (
-    <Loader>
-      <ActivityIndicator />
-    </Loader>
+    <Loader />
   ) : (
     <FlatList
       onRefresh={onRefresh}
