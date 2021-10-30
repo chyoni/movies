@@ -1,6 +1,7 @@
 import { ITvs } from './screens/Tv';
 import { IMovies } from './screens/Movies';
 import { TMDB_API_KEY } from './secrets';
+import { QueryFunctionContext } from 'react-query';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -31,6 +32,12 @@ export const moviesAPI = {
     fetch(
       `${BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=1`
     ).then((res) => res.json()),
+  search: (context: QueryFunctionContext<string[]>) => {
+    const [_, query] = context.queryKey;
+    return fetch(
+      `${BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=en-US&query=${query}&page=1`
+    ).then((res) => res.json());
+  },
 };
 
 export const tvAPI = {
@@ -46,4 +53,10 @@ export const tvAPI = {
     fetch(
       `${BASE_URL}/tv/top_rated?api_key=${TMDB_API_KEY}&language=en-US&page=1`
     ).then((res) => res.json()),
+  search: (context: QueryFunctionContext<string[]>) => {
+    const [_, query] = context.queryKey;
+    return fetch(
+      `${BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&language=en-US&query=${query}&page=1`
+    ).then((res) => res.json());
+  },
 };

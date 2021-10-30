@@ -118,3 +118,8 @@ npx create-react-native-app
   - 한 가지 FlatList를 쓸 때 주의사항은 ScrollView (vertical) 안에 FlatList (vertical)을 사용할 수 없다는 점
 
 - #24 Tv Screen 2
+
+- #25 Search Screen
+
+  - useQuery를 화면 마운트 시 곧바로 실행하지 않게 하는 방법 (enabled:false옵션을 주면 된다.)
+  - useQuery의 fetch function에 variables을 넘겨주는 방법 (queryKey를 이용하면 된다.)

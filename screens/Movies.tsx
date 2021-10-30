@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components/native';
@@ -54,23 +54,17 @@ const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
   navigation: { navigate },
 }) => {
   const queryClient = useQueryClient();
-  const {
-    isLoading: nowPlayingLoading,
-    data: nowPlayingData,
-    isRefetching: isRefetchingNowPlaying,
-  } = useQuery<MovieResponse>(['movies', 'nowPlaying'], moviesAPI.nowPlaying);
-  const {
-    isLoading: upcomingLoading,
-    data: upcomingData,
-    isRefetching: isRefetchingUpcoming,
-  } = useQuery<MovieResponse>(['movies', 'upcoming'], moviesAPI.upcoming);
-  const {
-    isLoading: trendingLoading,
-    data: trendingData,
-    isRefetching: isRefetchingTrending,
-  } = useQuery<MovieResponse>(['movies', 'trending'], moviesAPI.trending);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const { isLoading: nowPlayingLoading, data: nowPlayingData } =
+    useQuery<MovieResponse>(['movies', 'nowPlaying'], moviesAPI.nowPlaying);
+  const { isLoading: upcomingLoading, data: upcomingData } =
+    useQuery<MovieResponse>(['movies', 'upcoming'], moviesAPI.upcoming);
+  const { isLoading: trendingLoading, data: trendingData } =
+    useQuery<MovieResponse>(['movies', 'trending'], moviesAPI.trending);
   const onRefresh = async () => {
-    queryClient.refetchQueries(['movies']);
+    setRefreshing(true);
+    await queryClient.refetchQueries(['movies']);
+    setRefreshing(false);
   };
   const vRenderItem = ({ item }: { item: IMovies }) => (
     <VMedia
@@ -92,8 +86,6 @@ const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
   const movieKeyExtractor = (item: IMovies) => item.id.toString();
   const loading: boolean =
     nowPlayingLoading || upcomingLoading || trendingLoading;
-  const refreshing: boolean =
-    isRefetchingNowPlaying || isRefetchingTrending || isRefetchingUpcoming;
   return loading ? (
     <Loader />
   ) : (
