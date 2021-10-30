@@ -1,10 +1,11 @@
 import React from 'react';
-import { FlatList, ScrollView } from 'react-native';
-import { useQuery } from 'react-query';
+import { FlatList, RefreshControl, ScrollView } from 'react-native';
+import { useQuery, useQueryClient } from 'react-query';
 import { tvAPI, TvResponse } from '../api';
 import Loader from '../components/Loader';
 import VMedia from '../components/VMedia';
 import styled from 'styled-components/native';
+import HList from '../components/HList';
 
 export interface ITvs {
   id: number;
@@ -19,57 +20,46 @@ export interface ITvs {
   overview: string;
 }
 
-const Seperator = styled.View`
-  margin-right: 20px;
-`;
-
 const Tv = () => {
-  const { isLoading: todayLoading, data: todayData } = useQuery<TvResponse>(
-    ['tv', 'today'],
-    tvAPI.airingToday
-  );
-  const { isLoading: topLoading, data: topData } = useQuery<TvResponse>(
-    ['tv', 'top'],
-    tvAPI.topRated
-  );
-  const { isLoading: trendingLoading, data: trendingData } =
-    useQuery<TvResponse>(['tv', 'trending'], tvAPI.trending);
-  const renderItem = ({ item }: { item: ITvs }) => (
-    <VMedia
-      id={item.id}
-      original_title={item.original_name}
-      poster_path={item.poster_path}
-      vote_average={item.vote_average}
-    />
-  );
+  const queryClient = useQueryClient();
+  const {
+    isLoading: todayLoading,
+    data: todayData,
+    isRefetching: todayRefreshing,
+  } = useQuery<TvResponse>(['tv', 'today'], tvAPI.airingToday);
+  const {
+    isLoading: topLoading,
+    data: topData,
+    isRefetching: topRefreshing,
+  } = useQuery<TvResponse>(['tv', 'top'], tvAPI.topRated);
+  const {
+    isLoading: trendingLoading,
+    data: trendingData,
+    isRefetching: trendingRefreshing,
+  } = useQuery<TvResponse>(['tv', 'trending'], tvAPI.trending);
+
+  const onRefresh = () => {
+    queryClient.refetchQueries(['tv']);
+  };
 
   const loading: boolean = todayLoading || topLoading || trendingLoading;
+  const refreshing: boolean =
+    todayRefreshing || topRefreshing || trendingRefreshing;
   if (loading) {
     return <Loader />;
   } else {
     return (
-      <ScrollView>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent={() => <Seperator />}
-          data={trendingData?.results}
-          renderItem={renderItem}
-        />
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent={() => <Seperator />}
-          data={todayData?.results}
-          renderItem={renderItem}
-        />
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent={() => <Seperator />}
-          data={topData?.results}
-          renderItem={renderItem}
-        />
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: 30 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {trendingData && (
+          <HList title={'Trending TV'} data={trendingData.results} />
+        )}
+        {todayData && <HList title={'Airing Today'} data={todayData.results} />}
+        {topData && <HList title={'Top Rated TV'} data={topData.results} />}
       </ScrollView>
     );
   }
