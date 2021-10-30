@@ -5,7 +5,13 @@ import Tv from '../screens/Tv';
 import Search from '../screens/Search';
 import { Ionicons } from '@expo/vector-icons';
 
-const Tab = createBottomTabNavigator();
+export type ChildrenTabsParamList = {
+  Movies: undefined;
+  Tv: undefined;
+  Search: undefined;
+};
+
+const Tab = createBottomTabNavigator<ChildrenTabsParamList>();
 
 const Tabs = () => {
   return (

@@ -1,4 +1,7 @@
+import { useNavigation } from '@react-navigation/core';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import Poster from './Poster';
 import Votes from './Votes';
@@ -9,6 +12,8 @@ interface VMediaProps {
   original_title: string;
   vote_average: number;
 }
+
+export type stackScreenProp = NativeStackNavigationProp<any>;
 
 const View = styled.View`
   align-items: center;
@@ -26,15 +31,24 @@ const VMedia: React.FC<VMediaProps> = ({
   original_title,
   vote_average,
 }) => {
+  const navigation = useNavigation<stackScreenProp>();
+  const goToDetail = () => {
+    navigation.navigate('Stack', {
+      screen: 'Detail',
+      params: { originalTitle: original_title },
+    });
+  };
   return (
-    <View key={id}>
-      <Poster path={poster_path!} />
-      <Title>
-        {original_title.slice(0, 13)}
-        {original_title.length > 13 ? '...' : null}
-      </Title>
-      <Votes vote_average={vote_average} />
-    </View>
+    <TouchableOpacity onPress={goToDetail}>
+      <View key={id}>
+        <Poster path={poster_path!} />
+        <Title>
+          {original_title.slice(0, 13)}
+          {original_title.length > 13 ? '...' : null}
+        </Title>
+        <Votes vote_average={vote_average} />
+      </View>
+    </TouchableOpacity>
   );
 };
 

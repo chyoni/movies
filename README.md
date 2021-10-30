@@ -123,3 +123,10 @@ npx create-react-native-app
 
   - useQuery를 화면 마운트 시 곧바로 실행하지 않게 하는 방법 (enabled:false옵션을 주면 된다.)
   - useQuery의 fetch function에 variables을 넘겨주는 방법 (queryKey를 이용하면 된다.)
+
+- #26 Detail Screen
+
+  - Navigation의 Screen이 아닌 Component에서 navigate하는 방법 (useNavigation)
+  - 특정 스크린으로 navigate할 때 Params을 전달하는 법
+  - 특정 스크린에서 navigation.setOptions를 사용하여 header를 바꾸는 방법
+  - NavigationProps type을 지정하는 방법

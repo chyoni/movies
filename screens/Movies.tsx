@@ -9,6 +9,7 @@ import VMedia from '../components/VMedia';
 import Loader from '../components/Loader';
 import { useQuery, useQueryClient } from 'react-query';
 import { MovieResponse, moviesAPI } from '../api';
+import { ChildrenTabsParamList } from '../navigation/Tabs';
 
 export interface IMovies {
   id: number;
@@ -50,9 +51,9 @@ const HSeperator = styled.View`
 
 const { height: SCREEN_HIGHT } = Dimensions.get('window');
 
-const Movies: React.FC<NativeStackScreenProps<any, 'Movies'>> = ({
-  navigation: { navigate },
-}) => {
+const Movies: React.FC<
+  NativeStackScreenProps<ChildrenTabsParamList, 'Movies'>
+> = ({ navigation: { navigate } }) => {
   const queryClient = useQueryClient();
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { isLoading: nowPlayingLoading, data: nowPlayingData } =

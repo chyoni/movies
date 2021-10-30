@@ -2,6 +2,9 @@ import React from 'react';
 import Poster from './Poster';
 import styled from 'styled-components/native';
 import Votes from './Votes';
+import { useNavigation } from '@react-navigation/core';
+import { stackScreenProp } from './VMedia';
+import { TouchableOpacity } from 'react-native';
 
 interface HMediaProps {
   id: number;
@@ -45,31 +48,40 @@ const HMedia: React.FC<HMediaProps> = ({
   release_date,
   vote_average,
 }) => {
+  const navigation = useNavigation<stackScreenProp>();
+  const goToDetail = () => {
+    navigation.navigate('Stack', {
+      screen: 'Detail',
+      params: { originalTitle: original_title },
+    });
+  };
   return (
-    <View key={id}>
-      <Poster path={poster_path!} />
-      <HColumn>
-        <Title>
-          {original_title.slice(0, 21)}
-          {original_title.length > 21 ? ' ...' : null}
-        </Title>
-        {release_date && (
-          <Release>
-            {new Date(release_date).toLocaleDateString('ko', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </Release>
-        )}
-        {vote_average && <Votes vote_average={vote_average} />}
-        <Overview>
-          {overview !== '' && overview.length > 140
-            ? `${overview.slice(0, 140)} ...`
-            : overview}
-        </Overview>
-      </HColumn>
-    </View>
+    <TouchableOpacity onPress={goToDetail}>
+      <View key={id}>
+        <Poster path={poster_path!} />
+        <HColumn>
+          <Title>
+            {original_title.slice(0, 21)}
+            {original_title.length > 21 ? ' ...' : null}
+          </Title>
+          {release_date && (
+            <Release>
+              {new Date(release_date).toLocaleDateString('ko', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </Release>
+          )}
+          {vote_average && <Votes vote_average={vote_average} />}
+          <Overview>
+            {overview !== '' && overview.length > 140
+              ? `${overview.slice(0, 140)} ...`
+              : overview}
+          </Overview>
+        </HColumn>
+      </View>
+    </TouchableOpacity>
   );
 };
 
