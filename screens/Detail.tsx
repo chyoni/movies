@@ -1,12 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { StyleSheet, Linking } from 'react-native';
+import { StyleSheet, TouchableOpacity, Share, Platform } from 'react-native';
 import styled from 'styled-components/native';
 import Poster from '../components/Poster';
 import { ChildrenStackParamList } from '../navigation/Stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import { makeImgPath, SCREEN_HIGHT } from '../utils';
-import { BLACK_COLOR, WHITE_COLOR } from '../colors';
+import { BLACK_COLOR, LIGHT_BLUE_COLOR, WHITE_COLOR } from '../colors';
 import { useQuery } from 'react-query';
 import { Ionicons } from '@expo/vector-icons';
 import { moviesAPI, tvAPI } from '../api';
@@ -77,11 +77,46 @@ const Detail: React.FC<
     await WebBrowser.openBrowserAsync(baseURL);
   };
 
+  const shareMedia = async () => {
+    const isAndroid = Platform.OS === 'android';
+    const homepage = isMovie
+      ? `https://www.imdb.com/title/${data?.imdb_id}`
+      : data.homepage;
+    if (isAndroid) {
+      await Share.share({
+        message: `${params.fullData.overview}\n Check it out: ${homepage}`,
+        title: isMovie
+          ? params.fullData.original_title
+          : params.fullData.original_name,
+      });
+    } else {
+      await Share.share({
+        url: homepage,
+        title: isMovie
+          ? params.fullData.original_title
+          : params.fullData.original_name,
+      });
+    }
+  };
+
+  const ShareButton = () => (
+    <TouchableOpacity onPress={shareMedia}>
+      <Ionicons name={'share-outline'} color={LIGHT_BLUE_COLOR} size={24} />
+    </TouchableOpacity>
+  );
+
   useEffect(() => {
     navigation.setOptions({
       title: params.fullData.original_title ? 'Movie' : 'TV Show',
     });
   }, []);
+  useEffect(() => {
+    if (data) {
+      navigation.setOptions({
+        headerRight: () => <ShareButton />,
+      });
+    }
+  }, [data]);
   return (
     <Contaier>
       <Header>

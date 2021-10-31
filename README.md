@@ -152,3 +152,10 @@ npx create-react-native-app
   - Linking은 앱에서 어떤 특정 URL로 이동할 수 있는 좋은 기능이다.
   - expo-web-browser는 앱 밖으로 나가서 웹을 실행하지 않고 앱 안에서 실행시키도록 해준다.
   - Linking 또는 expo-web-browser 둘 중 하나를 선택해서 사용하면 된다.
+
+- #31 Share
+
+  - Share API를 사용해서 공유하는 법 (React-native API)
+  - Header에 무언가를 놓을 때 놓는 시점에 따라서 우리가 원하지 않았던 결과를 초래할 수 있음 그렇기 때문에 Header에 무언가를 놓을 때 시점에 유의해야함
+    예를 들면, 이번 커밋에서 공유버튼을 Header에 넣고 data에 접근하려 했지만 data가 API를 통해 fetch되기 전에 Header에 공유버튼이 놓여졌기 때문에 data에 접근할 수 없었던 사례가 생김
+    따라서 data를 받고 난 후 Header에 공유버튼을 mount하는 식으로 그 시점을 잘 생각해야 함.

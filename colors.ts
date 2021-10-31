@@ -3,3 +3,4 @@ export const BLACK_COLOR = '#1e272e';
 export const LIGHT_GREY_COLOR = '#808e9b';
 export const LIGHT_WHITE_COLOR = '#d2dae2';
 export const WHITE_COLOR = '#ffffff';
+export const LIGHT_BLUE_COLOR = '#1597E5';
