@@ -22,6 +22,8 @@ PODS:
     - UMCore
   - EXKeepAwake (9.2.0):
     - UMCore
+  - EXLinearGradient (9.2.0):
+    - UMCore
   - ExpoModulesCore (0.2.0):
     - ExpoModulesCore/Core (= 0.2.0)
     - ExpoModulesCore/Interfaces (= 0.2.0)
@@ -342,6 +344,7 @@ DEPENDENCIES:
   - EXFont (from `../node_modules/expo-font/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
   - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
+  - EXLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - EXStructuredHeaders (from `../node_modules/expo-structured-headers/ios`)
@@ -406,6 +409,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-image-loader/ios"
   EXKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
+  EXLinearGradient:
+    :path: "../node_modules/expo-linear-gradient/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
   EXSplashScreen:
@@ -494,6 +499,7 @@ SPEC CHECKSUMS:
   EXFont: cb2350960187470ec54ff4668755abb74fde9839
   EXImageLoader: 6494524ac2b99af4edcacada0e19c71600423e59
   EXKeepAwake: db7607300383508b9ccf1da5bed4eab541f53e25
+  EXLinearGradient: 39c0836741b28dc4b7a07065e921de00abae47f3
   ExpoModulesCore: 730c7158b2fb179ba5921230e56a083a2304974d
   EXSplashScreen: f537a41eed0ad091fa599e1591ad4f94e38c6ca9
   EXStructuredHeaders: 5c1dfd030edc0128927fe3cb7ec73bec84b73ab4

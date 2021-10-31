@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components/native';
 import Slide from '../components/Slide';
@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 import { useQuery, useQueryClient } from 'react-query';
 import { MovieResponse, moviesAPI } from '../api';
 import { ChildrenTabsParamList } from '../navigation/Tabs';
+import { SCREEN_HIGHT } from '../utils';
 
 export interface IMovies {
   id: number;
@@ -49,8 +50,6 @@ const Seperator = styled.View`
 const HSeperator = styled.View`
   margin-bottom: 30px;
 `;
-
-const { height: SCREEN_HIGHT } = Dimensions.get('window');
 
 const Movies: React.FC<
   NativeStackScreenProps<ChildrenTabsParamList, 'Movies'>

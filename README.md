@@ -132,3 +132,10 @@ npx create-react-native-app
   - NavigationProps type을 지정하는 방법
 
 - #27 Full Data for Datail Screen
+
+- #28 Expo linear gradient component
+
+  ```bash
+  expo install expo-linear-gradient
+  npx pod-install ios (IOS용으로 개발할 때 또는 맥북으로 개발할때만)
+  ```
