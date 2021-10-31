@@ -137,7 +137,18 @@ npx create-react-native-app
 
   ```bash
   expo install expo-linear-gradient
-  npx pod-install ios (IOS용으로 개발할 때 또는 맥북으로 개발할때만)
+  npx pod-install ios (어떤 모듈을 설치할 때 IOS용으로 개발할 때 또는 맥북으로 개발할때만)
   ```
 
 - #29 Movie or TV detail API fetcher
+
+- #30 Linking and expo-web-browser
+
+  ```bash
+  expo install expo-web-browser
+  npx pod-install ios (어떤 모듈을 설치할 때 IOS용으로 개발할 때 또는 맥북으로 개발할때만)
+  ```
+
+  - Linking은 앱에서 어떤 특정 URL로 이동할 수 있는 좋은 기능이다.
+  - expo-web-browser는 앱 밖으로 나가서 웹을 실행하지 않고 앱 안에서 실행시키도록 해준다.
+  - Linking 또는 expo-web-browser 둘 중 하나를 선택해서 사용하면 된다.

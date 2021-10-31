@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Linking } from 'react-native';
 import styled from 'styled-components/native';
 import Poster from '../components/Poster';
 import { ChildrenStackParamList } from '../navigation/Stack';
@@ -8,7 +8,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { makeImgPath, SCREEN_HIGHT } from '../utils';
 import { BLACK_COLOR, WHITE_COLOR } from '../colors';
 import { useQuery } from 'react-query';
+import { Ionicons } from '@expo/vector-icons';
 import { moviesAPI, tvAPI } from '../api';
+import Loader from '../components/Loader';
+import * as WebBrowser from 'expo-web-browser';
+
+interface AppendResponseVideo {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  id: string;
+}
 
 const Contaier = styled.ScrollView``;
 const Header = styled.View`
@@ -29,32 +45,43 @@ const Title = styled.Text`
   font-weight: 500;
   padding: 0 5px;
 `;
+const Data = styled.View`
+  padding: 0px 20px;
+`;
 const Overview = styled.Text`
   color: ${(props) => props.theme.textColor};
-  margin-top: 30px;
-  padding: 0px 20px;
+  margin: 30px 0;
+`;
+const VideoBtn = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  padding: 3px 0;
+`;
+const BtnText = styled.Text`
+  margin-left: 10px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Detail: React.FC<
   NativeStackScreenProps<ChildrenStackParamList, 'Detail'>
 > = ({ route: { params }, navigation }) => {
-  const { isLoading: moviesLoading, data: moviesData } = useQuery(
-    ['movies', params.fullData.id.toString()],
-    moviesAPI.detail,
-    { enabled: 'original_title' in params.fullData }
+  const isMovie = 'original_title' in params.fullData;
+  const { isLoading, data } = useQuery(
+    [isMovie ? 'movies' : 'tv', params.fullData.id.toString()],
+    isMovie ? moviesAPI.detail : tvAPI.detail
   );
-  const { isLoading: tvsLoading, data: tvsData } = useQuery(
-    ['tv', params.fullData.id.toString()],
-    tvAPI.detail,
-    { enabled: 'original_name' in params.fullData }
-  );
+
+  const openYTLink = async (videoKey: string) => {
+    const baseURL = `http://m.youtube.com/watch?v=${videoKey}`;
+    // await Linking.openURL(baseURL);
+    await WebBrowser.openBrowserAsync(baseURL);
+  };
+
   useEffect(() => {
     navigation.setOptions({
       title: params.fullData.original_title ? 'Movie' : 'TV Show',
     });
   }, []);
-  console.log('movies', moviesData);
-  console.log('tvs', tvsData);
   return (
     <Contaier>
       <Header>
@@ -75,9 +102,18 @@ const Detail: React.FC<
           </Title>
         </Column>
       </Header>
-      <Overview>
-        {params.fullData.overview ? params.fullData.overview : 'Overview'}
-      </Overview>
+      <Data>
+        <Overview>
+          {params.fullData.overview ? params.fullData.overview : 'Overview'}
+        </Overview>
+        {isLoading ? <Loader /> : null}
+        {data?.videos?.results?.map((video: AppendResponseVideo) => (
+          <VideoBtn key={video.key} onPress={() => openYTLink(video.key)}>
+            <Ionicons name={'logo-youtube'} color={'red'} size={18} />
+            <BtnText>{video.name}</BtnText>
+          </VideoBtn>
+        ))}
+      </Data>
     </Contaier>
   );
 };
