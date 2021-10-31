@@ -3,6 +3,7 @@ import { BlurView } from 'expo-blur';
 import React from 'react';
 import { StyleSheet, useColorScheme, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { IMovies } from '../screens/Movies';
 import { makeImgPath } from '../utils';
 import Poster from './Poster';
 import { stackScreenProp } from './VMedia';
@@ -13,6 +14,7 @@ interface SlideProps {
   title: string;
   voteAverage: number;
   overview: string;
+  fullData: IMovies;
 }
 
 const BgImg = styled.Image`
@@ -49,13 +51,14 @@ const Slide: React.FC<SlideProps> = ({
   title,
   voteAverage,
   overview,
+  fullData,
 }) => {
   const isDark = useColorScheme() === 'dark';
   const navigation = useNavigation<stackScreenProp>();
   const goToDetail = () => {
     navigation.navigate('Stack', {
       screen: 'Detail',
-      params: { originalTitle: title },
+      params: { fullData },
     });
   };
   return (

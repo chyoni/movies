@@ -130,3 +130,5 @@ npx create-react-native-app
   - 특정 스크린으로 navigate할 때 Params을 전달하는 법
   - 특정 스크린에서 navigation.setOptions를 사용하여 header를 바꾸는 방법
   - NavigationProps type을 지정하는 방법
+
+- #27 Full Data for Datail Screen

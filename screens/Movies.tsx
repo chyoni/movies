@@ -18,6 +18,7 @@ export interface IMovies {
   release_date: string;
   genre_ids: Array<number>;
   original_title: string;
+  original_name: string | undefined;
   original_language: string;
   title: string;
   backdrop_path: string | null;
@@ -73,6 +74,7 @@ const Movies: React.FC<
       original_title={item.original_title}
       poster_path={item.poster_path}
       vote_average={item.vote_average}
+      fullData={item}
     />
   );
   const hRenderItem = ({ item }: { item: IMovies }) => (
@@ -82,6 +84,7 @@ const Movies: React.FC<
       overview={item.overview}
       poster_path={item.poster_path}
       release_date={item.release_date}
+      fullData={item}
     />
   );
   const movieKeyExtractor = (item: IMovies) => item.id.toString();
@@ -117,6 +120,7 @@ const Movies: React.FC<
                   title={movie.title}
                   voteAverage={movie.vote_average}
                   overview={movie.overview}
+                  fullData={movie}
                 />
               </View>
             ))}

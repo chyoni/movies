@@ -5,24 +5,6 @@ import VMedia from './VMedia';
 import { IMovies } from '../screens/Movies';
 import { ITvs } from '../screens/Tv';
 
-interface MovieOrTv {
-  id: number;
-  poster_path: string | null;
-  adult?: boolean;
-  release_date?: string;
-  genre_ids: Array<number>;
-  original_title?: string;
-  original_name?: string;
-  original_language: string;
-  title?: string;
-  backdrop_path: string | null;
-  popularity: number;
-  vote_count: number;
-  video: boolean;
-  vote_average: number;
-  overview: string;
-}
-
 interface HListProps {
   title: string;
   data: IMovies[] | ITvs[];
@@ -43,9 +25,9 @@ const Seperator = styled.View`
 `;
 
 const HList: React.FC<HListProps> = ({ title, data }) => {
-  const keyExtractor = (item: MovieOrTv) => item.id.toString();
+  const keyExtractor = (item: IMovies | ITvs) => item.id.toString();
 
-  const renderItem = ({ item }: { item: MovieOrTv }) => (
+  const renderItem = ({ item }: { item: IMovies | ITvs }) => (
     <VMedia
       id={item.id}
       original_title={
@@ -53,6 +35,7 @@ const HList: React.FC<HListProps> = ({ title, data }) => {
       }
       poster_path={item.poster_path}
       vote_average={item.vote_average}
+      fullData={item}
     />
   );
   return (

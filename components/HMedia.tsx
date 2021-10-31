@@ -5,6 +5,7 @@ import Votes from './Votes';
 import { useNavigation } from '@react-navigation/core';
 import { stackScreenProp } from './VMedia';
 import { TouchableOpacity } from 'react-native';
+import { IMovies } from '../screens/Movies';
 
 interface HMediaProps {
   id: number;
@@ -13,6 +14,7 @@ interface HMediaProps {
   overview: string;
   release_date?: string;
   vote_average?: number;
+  fullData: IMovies;
 }
 
 const View = styled.View`
@@ -47,12 +49,13 @@ const HMedia: React.FC<HMediaProps> = ({
   poster_path,
   release_date,
   vote_average,
+  fullData,
 }) => {
   const navigation = useNavigation<stackScreenProp>();
   const goToDetail = () => {
     navigation.navigate('Stack', {
       screen: 'Detail',
-      params: { originalTitle: original_title },
+      params: { fullData },
     });
   };
   return (

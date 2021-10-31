@@ -3,6 +3,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { IMovies } from '../screens/Movies';
+import { ITvs } from '../screens/Tv';
 import Poster from './Poster';
 import Votes from './Votes';
 
@@ -11,6 +13,7 @@ interface VMediaProps {
   poster_path: string | null;
   original_title: string;
   vote_average: number;
+  fullData: IMovies | ITvs;
 }
 
 export type stackScreenProp = NativeStackNavigationProp<any>;
@@ -30,12 +33,13 @@ const VMedia: React.FC<VMediaProps> = ({
   poster_path,
   original_title,
   vote_average,
+  fullData,
 }) => {
   const navigation = useNavigation<stackScreenProp>();
   const goToDetail = () => {
     navigation.navigate('Stack', {
       screen: 'Detail',
-      params: { originalTitle: original_title },
+      params: { fullData },
     });
   };
   return (

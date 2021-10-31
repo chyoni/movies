@@ -1,9 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Detail from '../screens/Detail';
+import { IMovies } from '../screens/Movies';
+import { ITvs } from '../screens/Tv';
 
 export type ChildrenStackParamList = {
-  Detail: { originalTitle: string };
+  Detail: { fullData: IMovies | ITvs };
 };
 
 const NativeStack = createNativeStackNavigator<ChildrenStackParamList>();

@@ -14,6 +14,7 @@ export interface ITvs {
   poster_path: string | null;
   genre_ids: Array<number>;
   original_name: string;
+  original_title: string | undefined;
   original_language: string;
   backdrop_path: string | null;
   popularity: number;
