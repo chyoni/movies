@@ -139,3 +139,5 @@ npx create-react-native-app
   expo install expo-linear-gradient
   npx pod-install ios (IOS용으로 개발할 때 또는 맥북으로 개발할때만)
   ```
+
+- #29 Movie or TV detail API fetcher

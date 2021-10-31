@@ -7,6 +7,8 @@ import { ChildrenStackParamList } from '../navigation/Stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import { makeImgPath, SCREEN_HIGHT } from '../utils';
 import { BLACK_COLOR, WHITE_COLOR } from '../colors';
+import { useQuery } from 'react-query';
+import { moviesAPI, tvAPI } from '../api';
 
 const Contaier = styled.ScrollView``;
 const Header = styled.View`
@@ -36,11 +38,23 @@ const Overview = styled.Text`
 const Detail: React.FC<
   NativeStackScreenProps<ChildrenStackParamList, 'Detail'>
 > = ({ route: { params }, navigation }) => {
+  const { isLoading: moviesLoading, data: moviesData } = useQuery(
+    ['movies', params.fullData.id.toString()],
+    moviesAPI.detail,
+    { enabled: 'original_title' in params.fullData }
+  );
+  const { isLoading: tvsLoading, data: tvsData } = useQuery(
+    ['tv', params.fullData.id.toString()],
+    tvAPI.detail,
+    { enabled: 'original_name' in params.fullData }
+  );
   useEffect(() => {
     navigation.setOptions({
       title: params.fullData.original_title ? 'Movie' : 'TV Show',
     });
   }, []);
+  console.log('movies', moviesData);
+  console.log('tvs', tvsData);
   return (
     <Contaier>
       <Header>
