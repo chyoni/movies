@@ -24,9 +24,11 @@ export const moviesAPI = {
     fetch(`${BASE_URL}/trending/movie/week?api_key=${TMDB_API_KEY}`).then(
       (res) => res.json()
     ),
-  upcoming: () =>
+  upcoming: (context: QueryFunctionContext) =>
+    // useInfiniteQuery는 2번째 인자로 queryFn을 받고 얘가 가지는 args는 context: QueryFunctionContext인데,
+    // getNextPageParam 옵션 Fn을 잘 구현해놨다면 다음 page를 context.pageParam을 통해 쉽게 얻어올 수 있음
     fetch(
-      `${BASE_URL}/movie/upcoming?api_key=${TMDB_API_KEY}&language=en-US&page=3`
+      `${BASE_URL}/movie/upcoming?api_key=${TMDB_API_KEY}&language=en-US&page=${context.pageParam}`
     ).then((res) => res.json()),
   nowPlaying: () =>
     fetch(
